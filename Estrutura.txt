@@ -1,0 +1,55 @@
+orgfiscal/s
+│
+├── public/                         # tudo acessível pelo navegador
+│   │
+│   ├── index.php                   # dashboard / checklist mensal
+│   ├── login.php                   # login
+│   ├── logout.php                  # logout
+│   ├── criar-lembrete.php          # criação de lembretes
+│   ├── tarefa.php                  # tela de orientação da obrigação
+│   │
+│   ├── assets/
+│   │   ├── css/
+│   │   │   ├── reset.css           # reset de estilos
+│   │   │   ├── variables.css       # cores, fontes, identidade visual
+│   │   │   └── main.css            # layout geral do sistema
+│   │   │
+│   │   ├── js/
+│   │   │   └── main.js             # interações básicas
+│   │   │
+│   │   ├── img/
+│   │   │   ├── logo-orgfiscal.png  # logo principal (MVP)
+│   │   │   ├── logo-orgfiscal.svg  # versão vetorial (opcional)
+│   │   │   └── favicon.png         # favicon (gerado depois)
+│   │   │
+│   │   └── fonts/                  # se futuramente quiser fontes locais
+│   │
+│   └── .htaccess                   # regras (opcional, depois)
+│
+├── app/                            # lógica do sistema (não pública)
+│   │
+│   ├── config/
+│   │   └── database.php            # conexão com banco
+│   │
+│   ├── controllers/
+│   │   ├── AuthController.php
+│   │   ├── LembreteController.php
+│   │   └── TarefaController.php
+│   │
+│   ├── models/
+│   │   ├── Usuario.php
+│   │   ├── Obrigacao.php
+│   │   └── Lembrete.php
+│   │
+│   ├── services/
+│   │   └── BlingService.php        # integração futura
+│   │
+│   └── helpers/
+│       └── auth.php                # verificação de sessão
+│
+├── database/
+│   └── schema.sql                  # estrutura do banco de dados
+│
+├── .gitignore                      # arquivos ignorados no git
+│
+└── README.md                       # descrição do projeto

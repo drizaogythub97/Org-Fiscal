@@ -1,0 +1,22 @@
+:root {
+  /* Cores base */
+  --branco: #ffffff;
+  --cinza-fundo: #f7f9fb;
+  --cinza-borda: #dddddd;
+  --cinza-texto: #4a4a4a;
+
+  /* Azul (navegação / informação) */
+  --azul-principal: #4b6f8f;
+  --azul-secundario: #3f82c4;
+  --azul-claro: #eaf1f7;
+
+  /* Verde (fiscal / sucesso) */
+  --verde-principal: #7fa66a;
+  --verde-claro: #e9f3e5;
+
+  /* Tipografia */
+  --fonte-padrao: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Layout */
+  --raio-borda: 8px;
+}
