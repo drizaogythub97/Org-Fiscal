@@ -1,52 +1,84 @@
 <?php
-require_once __DIR__ . '/app/config/database.php';
+declare(strict_types=1);
 
-$stmt = $pdo->query("SELECT id, nome FROM obrigacoes ORDER BY id");
-$obrigacoes = $stmt->fetchAll();
+/*
+  HOME — OrgFiscal
+  Dashboard inicial
+*/
 ?>
 
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>OrgFiscal — Dashboard</title>
+    <meta charset="UTF-8">
+    <title>OrgFiscal — Início</title>
 
-  <!-- Fonte -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Fonte -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="assets/css/reset.css">
-  <link rel="stylesheet" href="assets/css/variables.css">
-  <link rel="stylesheet" href="assets/css/main.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header class="header">
+<!-- HEADER -->
+<header class="header">
     <div class="header-container">
-      <div class="logo">
-        <img src="assets/img/logo-orgfiscal.png" alt="OrgFiscal">
-      </div>
+        <div class="logo">
+            <img src="assets/img/logo-orgfiscal.png" alt="OrgFiscal">
+        </div>
     </div>
-  </header>
+</header>
 
-  <!-- CONTEÚDO -->
+<!-- CONTEÚDO -->
 <main class="container">
 
-  <h1 class="page-title">Checklist Fiscal — Mês Atual</h1>
+    <h1 class="page-title">Bem-vindo ao OrgFiscal</h1>
 
-  <?php foreach ($obrigacoes as $obrigacao): ?>
+    <p class="progresso">
+        Organize, acompanhe e mantenha em dia as obrigações fiscais da sua empresa.
+    </p>
+
+    <!-- AÇÕES PRINCIPAIS -->
     <div class="card">
-      <div class="checklist-item">
-        <input type="checkbox" disabled>
-        <span><?= htmlspecialchars($obrigacao['nome']) ?></span>
-      </div>
+        <a href="guia-tarefas.php" class="tarefa-link">
+            📘 Guia de Tarefas
+        </a>
+        <p>
+            Veja todas as obrigações fiscais, entenda o que são, por que existem e onde realizá-las.
+        </p>
     </div>
-  <?php endforeach; ?>
+
+    <div class="card">
+        <a href="criar-lembrete.php" class="tarefa-link">
+            ➕ Incluir Tarefas
+        </a>
+        <p>
+            Crie lembretes fiscais por mês ou ano, conforme a necessidade da sua empresa.
+        </p>
+    </div>
+
+    <div class="card">
+        <a href="concluir-tarefa.php" class="tarefa-link">
+            ✅ Concluir Tarefas
+        </a>
+        <p>
+            Marque como concluídas as obrigações de uma competência específica.
+        </p>
+    </div>
+
+    <div class="card">
+        <a href="historico.php" class="tarefa-link">
+            📊 Consultar Histórico
+        </a>
+        <p>
+            Consulte o histórico anual e acompanhe o status das obrigações por mês.
+        </p>
+    </div>
 
 </main>
-
 
 </body>
 </html>

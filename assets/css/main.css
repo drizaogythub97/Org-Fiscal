@@ -1,10 +1,16 @@
+/* =====================================================
+   BASE
+===================================================== */
+
 body {
   font-family: var(--fonte-padrao);
   background-color: var(--cinza-fundo);
   color: var(--cinza-texto);
 }
 
-/* ===== HEADER ===== */
+/* =====================================================
+   HEADER
+===================================================== */
 
 .header {
   background-color: var(--branco);
@@ -22,10 +28,11 @@ body {
 
 .logo img {
   height: 120px;
-  
 }
 
-/* ===== CONTAINER ===== */
+/* =====================================================
+   CONTAINER
+===================================================== */
 
 .container {
   max-width: 1100px;
@@ -33,45 +40,166 @@ body {
   padding: 0 16px;
 }
 
-/* ===== TÍTULO ===== */
+/* =====================================================
+   TÍTULOS
+===================================================== */
 
 .page-title {
   font-size: 20px;
   font-weight: 600;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
-/* ===== CARD ===== */
+.section-title {
+  margin: 24px 0 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--azul-principal);
+}
+
+/* =====================================================
+   PROGRESSO
+===================================================== */
+
+.progresso {
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: var(--cinza-texto);
+}
+
+/* =====================================================
+   CARD
+===================================================== */
 
 .card {
+  width: 100%;
   background-color: var(--branco);
   border: 1px solid var(--cinza-borda);
   border-radius: var(--raio-borda);
   padding: 16px;
   margin-bottom: 12px;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-/* ===== CHECKLIST ===== */
+/* =====================================================
+   CHECKLIST
+===================================================== */
 
 .checklist-item {
   display: flex;
   align-items: center;
+  width: 100%;
   gap: 12px;
+  min-height: 44px; /* área de toque confortável */
+}
+
+.checklist-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
 }
 
 .checklist-item input[type="checkbox"] {
   width: 18px;
   height: 18px;
+  accent-color: var(--verde-principal);
+  cursor: pointer;
 }
 
-.checklist-item span {
+/* =====================================================
+   LINKS
+===================================================== */
+
+.tarefa-link {
+  color: var(--azul-principal);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.tarefa-link:hover {
+  text-decoration: underline;
+}
+
+/* =====================================================
+   ESTADOS
+===================================================== */
+
+.card-concluido {
+  background-color: var(--verde-claro);
+  border-color: var(--verde-principal);
+}
+
+.card-concluido .tarefa-link,
+.card-concluido span {
+  color: #5f6f5f;
+  text-decoration: line-through;
+}
+
+/* =========================================*
+
+/* ===== BOTÃO PRINCIPAL ===== */
+
+.btn-principal {
+  width: 100%;
+  padding: 12px;
   font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--raio-borda);
+  background-color: var(--azul-principal);
+  color: #ffffff;
+  cursor: pointer;
 }
 
-/* ===== RESPONSIVO ===== */
+.btn-principal:hover {
+  background-color: var(--azul-secundario);
+}
 
-@media (max-width: 600px) {
-  .page-title {
-    font-size: 18px;
-  }
+/* =====================================================
+   NAVEGAÇÃO INFERIOR (INÍCIO / VOLTAR)
+===================================================== */
+
+.nav-bottom {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.btn-inicio,
+.btn-voltar {
+  all: unset; /* <<< neutraliza reset.css */
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: var(--raio-borda);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+
+/* Início */
+.btn-inicio {
+  background-color: var(--azul-principal);
+  color: #ffffff;
+}
+
+.btn-inicio:hover {
+  background-color: var(--azul-secundario);
+}
+
+/* Voltar */
+.btn-voltar {
+  background-color: #ffffff;
+  color: var(--cinza-texto);
+  border: 1px solid var(--cinza-borda);
+}
+
+.btn-voltar:hover {
+  background-color: var(--cinza-fundo);
 }

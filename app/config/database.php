@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 $host = 'sql109.infinityfree.com';
-$dbname = 'orgfiscal_db';
+$dbname = 'if0_40840312_orgfiscal_db';
 $user = 'if0_40840312';
 $pass = 'AyIQwoVIaluy';
 
