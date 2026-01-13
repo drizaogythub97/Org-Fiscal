@@ -1,4 +1,4 @@
-const CACHE_NAME = 'orgfiscal-v1';
+const CACHE_NAME = 'orgfiscal-v2';
 
 const FILES_TO_CACHE = [
   '/',
