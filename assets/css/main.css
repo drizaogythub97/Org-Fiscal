@@ -203,3 +203,102 @@ body {
 .btn-voltar:hover {
   background-color: var(--cinza-fundo);
 }
+
+
+/* =====================================================
+   HISTÓRICO ANUAL — STATUS DOS MESES
+===================================================== */
+
+.mes-ok {
+  background-color: #e6f4ea;
+  border-color: #2e7d32;
+}
+
+.mes-atencao {
+  background-color: #fff7e0;
+  border-color: #f0ad4e;
+}
+
+.mes-atraso {
+  background-color: #fcebea;
+  border-color: #d9534f;
+}
+
+.mes-ok strong,
+.mes-atencao strong,
+.mes-atraso strong {
+  font-size: 16px;
+}
+
+/* =====================================================
+   MOBILE — AJUSTES GERAIS
+===================================================== */
+
+@media (max-width: 768px) {
+
+  .container {
+    margin: 16px auto;
+    padding: 0 12px;
+  }
+
+  .header-container {
+    justify-content: center;
+  }
+
+  .logo img {
+    height: 80px;
+  }
+
+  .page-title {
+    font-size: 18px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .checklist-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .checklist-left {
+    width: 100%;
+  }
+
+  .card {
+    padding: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .btn-principal,
+  .btn-inicio,
+  .btn-voltar {
+    width: 100%;
+    text-align: center;
+    padding: 14px;
+    font-size: 15px;
+  }
+
+  .nav-bottom {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .card.mes-ok,
+  .card.mes-atencao,
+  .card.mes-atraso {
+    font-size: 15px;
+  }
+
+  .card strong {
+    font-size: 16px;
+  }
+}
+
