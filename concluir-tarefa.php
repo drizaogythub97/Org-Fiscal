@@ -93,6 +93,9 @@ $anosDisponiveis = $stmt->fetchAll(PDO::FETCH_COLUMN);
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/variables.css">
     <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#3b6b8f">
+
 </head>
 <body>
 
@@ -220,6 +223,14 @@ $anosDisponiveis = $stmt->fetchAll(PDO::FETCH_COLUMN);
     </div>
 
 </main>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js');
+  });
+}
+</script>
 
 </body>
 </html>
