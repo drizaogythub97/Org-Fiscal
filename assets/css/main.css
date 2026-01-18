@@ -64,7 +64,6 @@ body {
 .progresso {
   margin-bottom: 16px;
   font-size: 14px;
-  color: var(--cinza-texto);
 }
 
 /* =====================================================
@@ -90,7 +89,7 @@ body {
   align-items: center;
   width: 100%;
   gap: 12px;
-  min-height: 44px; /* área de toque confortável */
+  min-height: 44px;
 }
 
 .checklist-left {
@@ -136,9 +135,9 @@ body {
   text-decoration: line-through;
 }
 
-/* =========================================*
-
-/* ===== BOTÃO PRINCIPAL ===== */
+/* =====================================================
+   BOTÃO PRINCIPAL
+===================================================== */
 
 .btn-principal {
   width: 100%;
@@ -152,36 +151,30 @@ body {
   cursor: pointer;
 }
 
-.btn-principal:hover {
-  background-color: var(--azul-secundario);
-}
-
 /* =====================================================
    NAVEGAÇÃO INFERIOR (INÍCIO / VOLTAR)
 ===================================================== */
 
 .nav-bottom {
-  width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 40px;
+  gap: 12px;
+  margin-top: 32px;
 }
 
 .btn-inicio,
 .btn-voltar {
-  all: unset; /* <<< neutraliza reset.css */
-  display: inline-flex;
+  flex: 1;
+  display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 10px 14px;
-  font-size: 14px;
+  justify-content: center;
+  padding: 14px;
+  font-size: 15px;
   font-weight: 500;
   border-radius: var(--raio-borda);
   cursor: pointer;
-  white-space: nowrap;
+  text-decoration: none;
+  border: none;
 }
-
 
 /* Início */
 .btn-inicio {
@@ -189,24 +182,21 @@ body {
   color: #ffffff;
 }
 
-.btn-inicio:hover {
-  background-color: var(--azul-secundario);
-}
-
 /* Voltar */
 .btn-voltar {
-  background-color: #ffffff;
+  background-color: #f1f3f5;
   color: var(--cinza-texto);
   border: 1px solid var(--cinza-borda);
 }
 
-.btn-voltar:hover {
-  background-color: var(--cinza-fundo);
+/* Feedback toque */
+.btn-inicio:active,
+.btn-voltar:active {
+  opacity: 0.85;
 }
 
-
 /* =====================================================
-   HISTÓRICO ANUAL — STATUS DOS MESES
+   HISTÓRICO — STATUS DOS MESES
 ===================================================== */
 
 .mes-ok {
@@ -222,12 +212,6 @@ body {
 .mes-atraso {
   background-color: #fcebea;
   border-color: #d9534f;
-}
-
-.mes-ok strong,
-.mes-atencao strong,
-.mes-atraso strong {
-  font-size: 16px;
 }
 
 /* =====================================================
@@ -253,9 +237,6 @@ body {
     font-size: 18px;
     text-align: center;
   }
-}
-
-@media (max-width: 768px) {
 
   .checklist-item {
     flex-direction: column;
@@ -272,33 +253,15 @@ body {
   }
 }
 
-@media (max-width: 768px) {
+/* =====================================================
+   SAFE AREA — ANDROID / MOBILE
+===================================================== */
 
-  .btn-principal,
-  .btn-inicio,
-  .btn-voltar {
-    width: 100%;
-    text-align: center;
-    padding: 14px;
-    font-size: 15px;
-  }
-
-  .nav-bottom {
-    flex-direction: column;
-    gap: 12px;
-  }
+body {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
-@media (max-width: 768px) {
-
-  .card.mes-ok,
-  .card.mes-atencao,
-  .card.mes-atraso {
-    font-size: 15px;
-  }
-
-  .card strong {
-    font-size: 16px;
-  }
+.nav-bottom {
+  padding-bottom: calc(16px + env(safe-area-inset-bottom));
 }
-
