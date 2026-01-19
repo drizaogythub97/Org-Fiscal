@@ -2,29 +2,32 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/app/config/database.php';
-session_start();
 
 $erro = '';
+$sucesso = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $nome = trim($_POST['nome'] ?? '');
   $email = trim($_POST['email'] ?? '');
   $senha = $_POST['senha'] ?? '';
 
-  if ($email === '' || $senha === '') {
+  if ($nome === '' || $email === '' || $senha === '') {
     $erro = 'Preencha todos os campos.';
   } else {
-    $stmt = $pdo->prepare('SELECT id, nome, senha_hash FROM usuarios WHERE email = ?');
-    $stmt->execute([$email]);
-    $usuario = $stmt->fetch();
+    $check = $pdo->prepare('SELECT id FROM usuarios WHERE email = ?');
+    $check->execute([$email]);
 
-    if ($usuario && password_verify($senha, $usuario['senha_hash'])) {
-      $_SESSION['usuario_id'] = (int)$usuario['id'];
-      $_SESSION['usuario_nome'] = $usuario['nome'];
-
-      header('Location: dashboard.php');
-      exit;
+    if ($check->fetch()) {
+      $erro = 'Este email já está cadastrado.';
     } else {
-      $erro = 'Email ou senha inválidos.';
+      $hash = password_hash($senha, PASSWORD_DEFAULT);
+
+      $insert = $pdo->prepare(
+        'INSERT INTO usuarios (nome, email, senha_hash) VALUES (?, ?, ?)'
+      );
+      $insert->execute([$nome, $email, $hash]);
+
+      $sucesso = 'Cadastro realizado com sucesso. Faça login.';
     }
   }
 }
@@ -34,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OrgFiscal — Login</title>
+  <title>OrgFiscal — Cadastro</title>
 
   <link rel="stylesheet" href="assets/css/reset.css">
   <link rel="stylesheet" href="assets/css/variables.css">
@@ -51,13 +54,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </header>
 
 <main class="container">
-  <h1 class="page-title">Entrar</h1>
+  <h1 class="page-title">Criar Conta</h1>
 
   <?php if ($erro): ?>
     <p class="progresso" style="color:#d9534f;"><?= htmlspecialchars($erro) ?></p>
   <?php endif; ?>
 
+  <?php if ($sucesso): ?>
+    <p class="progresso" style="color:#2e7d32;"><?= htmlspecialchars($sucesso) ?></p>
+  <?php endif; ?>
+
   <form method="post" class="card">
+    <div class="checklist-item">
+      <input type="text" name="nome" placeholder="Nome" required style="width:100%;">
+    </div>
     <div class="checklist-item">
       <input type="email" name="email" placeholder="Email" required style="width:100%;">
     </div>
@@ -65,11 +75,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <input type="password" name="senha" placeholder="Senha" required style="width:100%;">
     </div>
 
-    <button class="btn-principal" type="submit">Entrar</button>
+    <button class="btn-principal" type="submit">Cadastrar</button>
   </form>
 
   <p class="progresso">
-    Não tem conta? <a class="tarefa-link" href="register.php">Cadastre-se</a>
+    Já tem conta? <a class="tarefa-link" href="index.php">Entrar</a>
   </p>
 </main>
 

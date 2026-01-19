@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-require_once __DIR__ . '/app/config/database.php';
+require_once __DIR__ . '/app/config/bootstrap.php';
+exigirLogin();
 
-$usuarioId = 1;
 
 /* ============================
    DEFINIÇÃO DA COMPETÊNCIA
@@ -218,7 +218,7 @@ $anosDisponiveis = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
     <!-- NAVEGAÇÃO -->
     <div class="nav-bottom">
-        <a href="index.php" class="btn-inicio">🏠 Início</a>
+        <a href="dashboard.php" class="btn-inicio">🏠 Início</a>
         <button type="button" class="btn-voltar" onclick="history.back()">⬅ Voltar</button>
     </div>
 
@@ -231,6 +231,13 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-container">
+        <span>OrgFiscal — Todos os direitos reservados a Adriano Cardoso</span>
+    </div>
+</footer>
 
 </body>
 </html>

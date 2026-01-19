@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-require_once __DIR__ . '/app/config/database.php';
+require_once __DIR__ . '/app/config/bootstrap.php';
+exigirLogin();
+
 
 /* ============================
    VALIDA ID
@@ -101,7 +103,7 @@ if (!$obrigacao) {
     </div>
 
 <div class="nav-bottom">
-  <a href="index.php" class="btn-inicio">
+  <a href="dashboard.php" class="btn-inicio">
     🏠 Início
   </a>
 
@@ -119,6 +121,13 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-container">
+        <span>OrgFiscal — Todos os direitos reservados a Adriano Cardoso</span>
+    </div>
+</footer>
 
 </body>
 </html>
