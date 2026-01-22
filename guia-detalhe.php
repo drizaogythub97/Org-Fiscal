@@ -5,41 +5,34 @@ require_once __DIR__ . '/app/config/bootstrap.php';
 exigirLogin();
 
 /* ============================
-   VALIDAÇÃO DO ID
+   VALIDA ID DA OBRIGAÇÃO
 ============================ */
-if (
-    !isset($_GET['id']) ||
-    !ctype_digit($_GET['id'])
-) {
-    header('Location: dashboard.php');
-    exit;
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+    die('Obrigação inválida.');
 }
 
-$lembreteId = (int) $_GET['id'];
-$usuarioId  = (int) $_SESSION['usuario_id'];
+$obrigacaoId = (int) $_GET['id'];
 
 /* ============================
    BUSCA DADOS DA OBRIGAÇÃO
 ============================ */
 $stmt = $pdo->prepare("
     SELECT
-        o.nome,
-        o.descricao,
-        o.importancia,
-        o.portal_nome,
-        o.portal_url,
-        o.passo_a_passo
-    FROM lembretes l
-    INNER JOIN obrigacoes o ON o.id = l.obrigacao_id
-    WHERE l.id = ?
-      AND l.usuario_id = ?
+        nome,
+        tipo,
+        descricao,
+        importancia,
+        portal_nome,
+        portal_url,
+        passo_a_passo
+    FROM obrigacoes
+    WHERE id = ?
 ");
-$stmt->execute([$lembreteId, $usuarioId]);
+$stmt->execute([$obrigacaoId]);
 $obrigacao = $stmt->fetch();
 
 if (!$obrigacao) {
-    header('Location: dashboard.php');
-    exit;
+    die('Obrigação não encontrada.');
 }
 ?>
 
@@ -48,7 +41,8 @@ if (!$obrigacao) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($obrigacao['nome']) ?> — OrgFiscal</title>
+
+    <title><?= htmlspecialchars($obrigacao['nome']) ?> — Guia OrgFiscal</title>
 
     <!-- Fonte -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -79,6 +73,10 @@ if (!$obrigacao) {
 
     <h1 class="page-title"><?= htmlspecialchars($obrigacao['nome']) ?></h1>
 
+    <p class="progresso">
+        Tipo: <?= $obrigacao['tipo'] === 'mensal' ? 'Obrigação Mensal' : 'Obrigação Anual' ?>
+    </p>
+
     <div class="card">
         <h3>📌 O que é</h3>
         <p><?= nl2br(htmlspecialchars($obrigacao['descricao'])) ?></p>
@@ -93,9 +91,12 @@ if (!$obrigacao) {
         <div class="card">
             <h3>🌐 Onde fazer</h3>
             <p>
-                Portal: <strong><?= htmlspecialchars($obrigacao['portal_nome']) ?></strong><br>
-                <a href="<?= htmlspecialchars($obrigacao['portal_url']) ?>" target="_blank" rel="noopener">
-                    Acessar portal oficial
+                Portal: <strong><?= htmlspecialchars($obrigacao['portal_nome']) ?></strong><br><br>
+                <a href="<?= htmlspecialchars($obrigacao['portal_url']) ?>" 
+                   class="tarefa-link" 
+                   target="_blank" 
+                   rel="noopener noreferrer">
+                    Acessar portal oficial →
                 </a>
             </p>
         </div>
@@ -108,9 +109,9 @@ if (!$obrigacao) {
         </div>
     <?php endif; ?>
 
-    <!-- NAVEGAÇÃO -->
+    <!-- Navegação -->
     <div class="nav-bottom">
-        <a href="dashboard.php" class="btn-inicio">🏠 Início</a>
+        <a href="guia-tarefas.php" class="btn-inicio">📘 Guia</a>
         <button type="button" class="btn-voltar" onclick="history.back()">⬅ Voltar</button>
     </div>
 

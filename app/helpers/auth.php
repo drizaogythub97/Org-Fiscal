@@ -1,14 +1,35 @@
 <?php
 declare(strict_types=1);
-session_start();
 
-function usuarioLogado(): bool {
-    return isset($_SESSION['usuario_id']);
+/**
+ * Autenticação — OrgFiscal
+ * Seguro para InfinityFree
+ */
+
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
 }
 
-function exigirLogin(): void {
+function usuarioLogado(): bool
+{
+    return isset($_SESSION['usuario_id']) && is_numeric($_SESSION['usuario_id']);
+}
+
+function exigirLogin(): void
+{
     if (!usuarioLogado()) {
-        header('Location: index.php');
+        header('Location: /index.php');
         exit;
     }
+}
+
+function logout(): void
+{
+    if (session_status() === PHP_SESSION_ACTIVE) {
+        session_unset();
+        session_destroy();
+    }
+
+    header('Location: /index.php');
+    exit;
 }

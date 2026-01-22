@@ -133,9 +133,7 @@ $anosDisponiveis = $stmt->fetchAll(PDO::FETCH_COLUMN);
                 <label>Ano:</label>
                 <select name="ano">
   <?php foreach ($anosDisponiveis as $a): ?>
-    <option value="<?= $a ?>" <?= ($a == ($anoSelecionado ?? null)) ? 'selected' : '' ?>>
-      <?= $a ?>
-    </option>
+    <option value="<?= $a ?>"><?= $a ?></option>
   <?php endforeach; ?>
 </select>
 

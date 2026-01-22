@@ -68,12 +68,12 @@ function statusDoMes(
         $stmt->execute([$usuarioId, $ano]);
         $defis = $stmt->fetchColumn();
 
+        $totalEsperado = $totalMensais + 1;
+
         if ($defis !== false) {
             $mensais[] = $defis;
-            $totalEsperado = $totalMensais + 1;
-        } else {
-            $totalEsperado = $totalMensais + 1;
         }
+
     } else {
         $totalEsperado = $totalMensais;
     }
@@ -89,10 +89,14 @@ function statusDoMes(
     }
 
     // Prazo: dia 20 do mês seguinte
+    $anoPrazo = $mes === 12 ? $ano + 1 : $ano;
+    $mesPrazo = $mes === 12 ? 1 : $mes + 1;
+
     $prazo = DateTime::createFromFormat(
-        'Y-m-d',
-        sprintf('%04d-%02d-20', $ano, $mes + 1)
+    'Y-m-d',
+    sprintf('%04d-%02d-20', $anoPrazo, $mesPrazo)
     );
+
     $hoje = new DateTime();
 
     return ($hoje <= $prazo) ? 'atencao' : 'atraso';
