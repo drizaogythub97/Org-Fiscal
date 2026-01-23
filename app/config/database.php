@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 date_default_timezone_set('America/Sao_Paulo');
 
-$host = 'sql109.infinityfree.com';
-$dbname = 'if0_40840312_orgfiscal_db';
-$user = 'if0_40840312';
-$pass = 'AyIQwoVIaluy';
+$host = 'localhost';
+$dbname = 'u879355098_orgfiscal';
+$user = 'u879355098_orgfiscal_user';
+$pass = 'LGkp265d#';
 
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,

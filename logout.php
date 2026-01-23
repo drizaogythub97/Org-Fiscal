@@ -1,50 +1,32 @@
 <?php
 declare(strict_types=1);
 
-/*
- | Logout seguro — OrgFiscal
- | Compatível com InfinityFree
+session_start();
+
+/**
+ * Logout simples, confiável e compatível com WebView/PWA
  */
 
-require_once __DIR__ . '/app/config/bootstrap.php';
-
-/* Garante sessão ativa */
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-
-/* Limpa variáveis */
+// Limpa sessão
 $_SESSION = [];
 
-/* Remove cookie de sessão */
+// Remove cookie da sessão
 if (ini_get('session.use_cookies')) {
     $params = session_get_cookie_params();
     setcookie(
         session_name(),
         '',
-        time() - 42000,
+        time() - 3600,
         $params['path'],
         $params['domain'],
-        true,
-        true
+        $params['secure'],
+        $params['httponly']
     );
 }
 
-/* Destroi sessão */
+// Destroi sessão
 session_destroy();
 
-/* Fallback de redirecionamento (InfinityFree-safe) */
-?>
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0;url=/index.php">
-  <script>
-    window.location.href = "/index.php";
-  </script>
-  <title>Saindo…</title>
-</head>
-<body>
-</body>
-</html>
+// Redirecionamento RELATIVO
+header('Location: index.php');
+exit;

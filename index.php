@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/app/config/bootstrap.php';
 
-// Se já estiver logado, vai direto para o dashboard
+// Se já estiver logado, manda para dashboard
 if (usuarioLogado()) {
     header('Location: dashboard.php');
     exit;
