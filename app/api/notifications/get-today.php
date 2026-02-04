@@ -2,41 +2,62 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../../config/bootstrap.php';
-require_once BASE_PATH . '/app/helpers/api_token.php';
 require_once BASE_PATH . '/app/services/NotificationEngine.php';
 
 header('Content-Type: application/json');
 
-// 🔐 Token vem no header Authorization
-$headers = getallheaders();
-$auth = $headers['Authorization'] ?? '';
+// ===============================
+// 🔐 AUTENTICAÇÃO VIA TOKEN
+// ===============================
+$authHeader = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
 
-if (!preg_match('/Bearer\s+(.*)$/i', $auth, $matches)) {
+if (!preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
     http_response_code(401);
     echo json_encode(['error' => 'Token não informado']);
     exit;
 }
 
-$token = trim($matches[1]);
+$token = $matches[1];
 
-$usuarioId = validarTokenApi($pdo, $token);
+// Valida token
+$stmt = $pdo->prepare("
+    SELECT usuario_id
+    FROM auth_tokens
+    WHERE token = ?
+      AND ativo = 1
+      AND (expira_em IS NULL OR expira_em > NOW())
+");
+$stmt->execute([$token]);
+
+$usuarioId = $stmt->fetchColumn();
 
 if (!$usuarioId) {
     http_response_code(401);
-    echo json_encode(['error' => 'Token inválido']);
+    echo json_encode(['error' => 'Token inválido ou expirado']);
     exit;
 }
 
-$engine = new NotificationEngine($pdo);
+// ===============================
+// 🧠 GERA NOTIFICAÇÕES
+// ===============================
+try {
+    $engine = new NotificationEngine($pdo);
 
-$notificacoes = $engine->gerarNotificacoesDoDia(
-    $usuarioId,
-    new DateTime('now')
-);
+    $notificacoes = $engine->gerarNotificacoesDoDia(
+        (int) $usuarioId,
+        new DateTime('now')
+    );
 
-echo json_encode([
-    'data' => [
-        'gerado_em' => date('Y-m-d H:i:s'),
-        'notificacoes' => $notificacoes
-    ]
-]);
+    echo json_encode([
+        'data' => [
+            'gerado_em'   => date('Y-m-d H:i:s'),
+            'notificacoes'=> $notificacoes
+        ]
+    ]);
+} catch (Throwable $e) {
+    http_response_code(500);
+    echo json_encode([
+        'error' => 'Erro interno',
+        'detail'=> $e->getMessage()
+    ]);
+}
