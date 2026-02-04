@@ -20,7 +20,12 @@ class NotificationEngine
         int $usuarioId,
         DateTime $agora
     ): array {
-        $notificacoes = [];
+        $notificacoes[] = [
+        'codigo' => 'teste',
+        'titulo' => 'Notificação de teste do OrgFiscal',
+        'prioridade' => 'normal'
+            ];
+
 
         $dia = (int) $agora->format('d');
         $mes = (int) $agora->format('m');
